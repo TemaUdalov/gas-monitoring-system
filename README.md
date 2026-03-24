@@ -27,11 +27,7 @@
 
 ### Шаг 1. Установить PostgreSQL
 
-**Windows**: скачать с https://www.postgresql.org/download/windows/ и установить. Запомнить пароль пользователя `postgres`.
-
-**macOS**: `brew install postgresql@16 && brew services start postgresql@16`
-
-**Linux**: `sudo apt install postgresql postgresql-contrib && sudo systemctl start postgresql`
+Скачать с https://www.postgresql.org/download/windows/ и установить. Запомнить пароль пользователя `postgres`.
 
 ### Шаг 2. Создать базу данных
 
@@ -47,9 +43,8 @@ CREATE DATABASE gas_monitoring;
 ### Шаг 3. Клонировать проект
 
 ```bash
-git clone https://github.com/TemaUdalov/gas-transport-monitoring-system.git
-cd gas-transport-monitoring-system
-git checkout claude/gas-pipeline-monitoring-mvp-pInFj
+git clone https://github.com/TemaUdalov/gas-monitoring-system.git
+cd gas-monitoring-system
 ```
 
 ### Шаг 4. Настроить переменные окружения
