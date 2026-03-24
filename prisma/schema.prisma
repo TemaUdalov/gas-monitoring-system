@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String   @id @default(cuid())
+  login        String   @unique
+  passwordHash String
+  role         String   @default("operator")
+  fullName     String
+  createdAt    DateTime @default(now())
+}
+
+model Facility {
+  id            String          @id
+  name          String
+  type          String
+  locationLat   Float
+  locationLng   Float
+  locationLabel String
+  status        String          @default("normal")
+  pressure      Float
+  temperature   Float
+  flowRate      Float
+  lastUpdated   DateTime
+  description   String          @default("")
+  readings      SensorReading[]
+  alerts        Alert[]
+}
+
+model SensorReading {
+  id          String   @id @default(cuid())
+  facilityId  String
+  timestamp   DateTime
+  pressure    Float
+  temperature Float
+  flowRate    Float
+  facility    Facility @relation(fields: [facilityId], references: [id])
+
+  @@index([facilityId, timestamp])
+}
+
+model Alert {
+  id           String   @id @default(cuid())
+  facilityId   String
+  facilityName String
+  title        String
+  description  String
+  severity     String
+  status       String   @default("active")
+  createdAt    DateTime @default(now())
+  isRead       Boolean  @default(false)
+  facility     Facility @relation(fields: [facilityId], references: [id])
+
+  @@index([facilityId])
+  @@index([status])
+}
+
+model Report {
+  id        String   @id @default(cuid())
+  title     String
+  period    String
+  summary   String
+  type      String
+  createdAt DateTime @default(now())
+}
